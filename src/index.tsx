@@ -1,9 +1,11 @@
 // MyComponent.tsx
 import { FC } from 'react';
+import "./main.scss"
 
 interface ColumnType {
     field: string;
     label: string;
+    width?: number;
 }
 
 interface RowType {
@@ -13,21 +15,24 @@ interface RowType {
 interface UiTableProps {
     columns: Array<ColumnType>;
     data: Array<RowType>;
+    rowKeyField: string;
 }
 
-const UiTable: FC<UiTableProps> = ({ columns, data }) => {
+const UiTable: FC<UiTableProps> = ({ columns, data, rowKeyField }) => {
     return <table>
         <thead>
-            {
-                columns.map(column => <th key={column.field}>{column.label}</th>)
-            }
+            <tr>
+                {
+                    columns.map(column => <th key={column.field}>{column.label}</th>)
+                }
+            </tr>
         </thead>
         <tbody>
             {
                 data.map((row: RowType) =>
-                    <tr>
+                    <tr key={row[rowKeyField]}>
                         {
-                            columns.map(column => <td key={row[column.field]}>{row[column.field]}</td>)
+                            columns.map(column => <td key={`${row[rowKeyField]}-${column.field}`} width={column.width}>{row[column.field]}</td>)
                         }
                     </tr>
                 )
