@@ -1,6 +1,6 @@
 {
   "name": "react-uitable",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
   "main": "dist/index.js",
   "style": "dist/uitable.css",
@@ -23,10 +23,16 @@
     "webpack": "^5.88.2",
     "webpack-cli": "^5.1.4"
   },
-  "dependencies": {
+  "dependencies": {},
+  "peerDependencies": {
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sriniwas14/react-uitable.git"
   }
 }

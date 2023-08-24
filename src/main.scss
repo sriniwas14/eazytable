@@ -1,19 +1,59 @@
+$border-color: #e4e9ec;
+
 table.default {
-    border: 1px solid #e4e9ec;
-    // border-radius: 10px
     border-collapse: collapse;
     border-spacing: 0;
     border-radius: 3px;
     overflow: hidden;
-    /* Adjust this value to your desired gap */
 
     td {
         padding: 10px;
-        border: 1px solid #e4e9ec;
+        border: 1px solid $border-color;
         border-collapse: collapse;
+    }
+
+    thead {
+        font-weight: bold;
+        color: #4b4b4b;
     }
 }
 
-.rui_fullWidth {
+
+._rui_fullWidth {
     width: 100%;
+}
+
+._rui_header {
+    display: flex;
+    border-collapse: collapse;
+    border: 1px solid $border-color;
+    border-radius: 10px 10px 0 0;
+    padding: 10px;
+
+    .ruiSearch {
+        margin-left: auto;
+
+        input {
+            border-radius: 8px;
+            border: 2px solid $border-color;
+            padding: 7px;
+        }
+    }
+}
+
+.ruiTitle {
+    font-size: 20px;
+    margin-top: 6px;
+}
+
+._rui_footer {
+    display: flex;
+    border-collapse: collapse;
+    border: 1px solid $border-color;
+    border-radius: 0 0 10px 10px;
+    padding: 10px;
+
+    .fuiFooterTitle {
+        color: grey;
+    }
 }
