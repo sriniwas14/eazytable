@@ -16,14 +16,17 @@ interface UiTableProps {
     columns: Array<ColumnType>;
     data: Array<RowType>;
     rowKeyField: string;
+    baseClass?: string;
+    customClass?: string;
+    fullWidth?: boolean;
 }
 
-const UiTable: FC<UiTableProps> = ({ columns, data, rowKeyField }) => {
-    return <table>
+const UiTable: FC<UiTableProps> = ({ columns, data, rowKeyField, baseClass, customClass, fullWidth }) => {
+    return <table className={`${baseClass ? baseClass : (customClass ? customClass : "default")} ${fullWidth ? "rui_fullWidth" : ""}`}>
         <thead>
             <tr>
                 {
-                    columns.map(column => <th key={column.field}>{column.label}</th>)
+                    columns.map(column => <td width={column.width || 100} key={column.field}>{column.label}</td>)
                 }
             </tr>
         </thead>
@@ -32,7 +35,7 @@ const UiTable: FC<UiTableProps> = ({ columns, data, rowKeyField }) => {
                 data.map((row: RowType) =>
                     <tr key={row[rowKeyField]}>
                         {
-                            columns.map(column => <td key={`${row[rowKeyField]}-${column.field}`} width={column.width}>{row[column.field]}</td>)
+                            columns.map(column => <td key={`${row[rowKeyField]}-${column.field}`} width={column.width || 100}>{row[column.field]}</td>)
                         }
                     </tr>
                 )
