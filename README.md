@@ -1,2 +1,2 @@
 # react-uitable
-A simple yet powerful table library for react
+A simple, highly customizable and powerful table library for react
