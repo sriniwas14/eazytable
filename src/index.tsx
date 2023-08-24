@@ -12,7 +12,7 @@ interface RowType {
     [key: string]: any;
 }
 
-interface UiTableProps {
+interface EazyTableProps {
     title: string;
     columns: Array<ColumnType>;
     data: Array<RowType>;
@@ -24,7 +24,7 @@ interface UiTableProps {
     pagination?: boolean;
 }
 
-const UiTable: FC<UiTableProps> = ({ title, columns, data, rowKeyField, baseClass, customClass, fullWidth, itemsPerPage, pagination }) => {
+const EazyTable: FC<EazyTableProps> = ({ title, columns, data, rowKeyField, baseClass, customClass, fullWidth, itemsPerPage, pagination }) => {
     const [currentPage, setCurrentPage] = useState(1)
 
     return <div className={fullWidth ? "_rui_fullWidth" : ""} style={{ display: "table" }}>
@@ -74,4 +74,4 @@ const UiTable: FC<UiTableProps> = ({ title, columns, data, rowKeyField, baseClas
     </div>
 };
 
-export default UiTable;
+export default EazyTable;

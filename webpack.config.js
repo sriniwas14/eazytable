@@ -35,7 +35,7 @@ module.exports = {
     },
     plugins: [
         new MiniCssExtractPlugin({
-            filename: 'uitable.css' // Output CSS filename
+            filename: 'eazytable.css' // Output CSS filename
         })
     ],
     mode: process.env.MODE || 'development'
