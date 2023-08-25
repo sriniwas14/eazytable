@@ -1,6 +1,6 @@
 {
   "name": "eazytable",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "",
   "main": "dist/index.js",
   "style": "dist/eazytable.css",
@@ -9,7 +9,14 @@
     "dev": "npx webpack --watch",
     "build": "npx webpack"
   },
-  "keywords": [],
+  "keywords": [
+    "table",
+    "react-table",
+    "eazytable",
+    "component",
+    "ui",
+    "functional"
+  ],
   "author": "",
   "devDependencies": {
     "css-loader": "^6.8.1",
