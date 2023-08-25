@@ -23,11 +23,14 @@ interface EazyTableProps {
     customClass?: string;
     showHeader?: boolean;
     showFooter?: boolean;
+    height?: string | number;
+    alignText?: any;
+    striped?: boolean;
     // itemsPerPage?: number;
     // pagination?: boolean;
 }
 
-const EazyTable: FC<EazyTableProps> = ({ title, columns, data, rowKeyField, theme, customClass, showHeader, showFooter }) => {
+const EazyTable: FC<EazyTableProps> = ({ title, columns, data, rowKeyField, theme, customClass, showHeader, showFooter, height, alignText, striped }) => {
     const [currentPage, setCurrentPage] = useState<number>(1)
     const [items, setItems] = useState<RowType[]>([])
     const [filter, setFilter] = useState<string>("")
@@ -54,7 +57,7 @@ const EazyTable: FC<EazyTableProps> = ({ title, columns, data, rowKeyField, them
     }, [data, filter])
 
 
-    return <div className={`_rui_fullWidth _rui_Main ${theme ? theme : (customClass ? customClass : "default")}`} >
+    return <div style={{ height: `${height}` }} className={`_rui_fullWidth _rui_Main ${striped ? "striped" : ""} ${theme ? theme : "default"} ${(customClass ? customClass : "")}`} >
         {
             (showHeader === undefined || showHeader === true) ?
                 <div className="_rui_header">
@@ -70,7 +73,7 @@ const EazyTable: FC<EazyTableProps> = ({ title, columns, data, rowKeyField, them
         }
         <div className="_rui_table_container">
             <div style={{ height: "auto" }}>
-                <table className='_rui_fullWidth'>
+                <table style={{ textAlign: (alignText || "left") }} className='_rui_fullWidth'>
                     <thead>
                         <tr>
                             {

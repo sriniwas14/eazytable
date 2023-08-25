@@ -88,8 +88,6 @@ EasyTable is a versatile React library designed to streamline the process of cre
     customClass?: string;
     showHeader?: boolean;
     showFooter?: boolean;
-    // itemsPerPage?: number;
-    // pagination?: boolean;
 } -->
 
 ## Props References
@@ -101,6 +99,11 @@ EasyTable is a versatile React library designed to streamline the process of cre
 | title     | String | true |  Set the Title of the table|
 | columns   | Array  | true |  An Array Containing a list of columns|
 | data   | Array  | true |  An array containting row data |
+| rowKeyField | Number | The field in `data` which contains a unique row key |
+| showHeader | Boolean |  |
+| showFooter | Boolean |  |
+| height    | String | Set a fixed height for the table |
+| alignText    | String | Set the alignment of text in the table |
 
 
 

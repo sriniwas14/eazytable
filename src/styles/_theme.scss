@@ -1,0 +1,60 @@
+@mixin themestyles() {
+    ._rui_Main.#{$theme-name} {
+        background: $background-color;
+        border-color: $border-color;
+
+        th,
+        td,
+        ._rui_header,
+        ._rui_footer {
+            border-color: $border-color;
+        }
+
+        input {
+            background: lighten($background-muted-color, 8);
+            color: $foreground-muted-color;
+            border-color: $border-color !important;
+        }
+
+        thead tr {
+            background-color: lighten($background-muted-color, 8);
+        }
+    }
+
+    ._rui_Main.striped {
+        tr:nth-child(even) {
+            background-color: lighten($background-muted-color, 8);
+        }
+    }
+
+    @media (prefers-color-scheme: dark) {
+        ._rui_Main.#{$theme-name} {
+            background: $background-color-dark;
+            border-color: $border-color-dark;
+            color: $foreground-color-dark;
+
+            th,
+            td,
+            ._rui_header,
+            ._rui_footer {
+                border-color: $border-color-dark;
+            }
+
+            input {
+                background: $background-muted-color-dark;
+                color: $foreground-muted-color-dark;
+                border-color: $border-color-dark !important;
+            }
+
+            thead tr {
+                background-color: $background-muted-color-dark;
+            }
+        }
+
+        ._rui_Main.striped {
+            tr:nth-child(even) {
+                background-color: $background-muted-color-dark;
+            }
+        }
+    }
+}
