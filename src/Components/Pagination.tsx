@@ -15,7 +15,7 @@ const Pagination: FC<PaginationProps> = ({ totalItems, currentPage, itemsPerPage
     }, [totalItems])
 
     return (
-        <div>Pagination</div>
+        <div></div>
     )
 }
 

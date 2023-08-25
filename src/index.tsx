@@ -1,14 +1,16 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import "./main.scss"
 import Pagination from './Components/Pagination';
+import { SearchIcon } from './assets/icons';
 
 interface ColumnType {
     field: string;
     label: string;
     width?: number;
+    render?: (row: RowType) => string;
 }
 
-interface RowType {
+interface RowType extends Object {
     [key: string]: any;
 }
 
@@ -17,61 +19,108 @@ interface EazyTableProps {
     columns: Array<ColumnType>;
     data: Array<RowType>;
     rowKeyField: string;
-    baseClass?: string;
+    theme?: string;
     customClass?: string;
-    fullWidth?: boolean;
-    itemsPerPage?: number;
-    pagination?: boolean;
+    showHeader?: boolean;
+    showFooter?: boolean;
+    // itemsPerPage?: number;
+    // pagination?: boolean;
 }
 
-const EazyTable: FC<EazyTableProps> = ({ title, columns, data, rowKeyField, baseClass, customClass, fullWidth, itemsPerPage, pagination }) => {
-    const [currentPage, setCurrentPage] = useState(1)
+const EazyTable: FC<EazyTableProps> = ({ title, columns, data, rowKeyField, theme, customClass, showHeader, showFooter }) => {
+    const [currentPage, setCurrentPage] = useState<number>(1)
+    const [items, setItems] = useState<RowType[]>([])
+    const [filter, setFilter] = useState<string>("")
 
-    return <div className={fullWidth ? "_rui_fullWidth" : ""} style={{ display: "table" }}>
-        <div className="_rui_header">
-            <div className='ruiTitle'>
-                {title}
-            </div>
-            <div className='ruiSearch'>
-                <input type='text' placeholder='Search' />
-            </div>
-        </div>
-        <table className={`${baseClass ? baseClass : (customClass ? customClass : "default")} ${fullWidth ? "_rui_fullWidth" : ""}`}>
-            <thead>
-                <tr>
-                    {
-                        columns.map(column => <td width={column.width || 100} key={column.field}>{column.label}</td>)
-                    }
-                </tr>
-            </thead>
-            <tbody>
-                {
-                    data.map((row: RowType) =>
-                        <tr key={row[rowKeyField]}>
+    useEffect(() => {
+        let _data: RowType[] = data
+        let _filteredDataset: Set<RowType> = new Set<RowType>()
+
+        if (filter.length > 0) {
+            columns.forEach((column: ColumnType) => {
+                data.forEach((row: RowType) => {
+                    if (!row[column.field]) return
+                    let str = row[column.field].toString()
+                    if (str.search(filter) !== -1 && !_filteredDataset.has(row))
+                        _filteredDataset.add(row)
+
+                })
+            })
+            setItems([..._filteredDataset])
+        } else {
+            setItems(_data)
+        }
+
+    }, [data, filter])
+
+
+    return <div className={`_rui_fullWidth _rui_Main ${theme ? theme : (customClass ? customClass : "default")}`} >
+        {
+            (showHeader === undefined || showHeader === true) ?
+                <div className="_rui_header">
+                    <div className='ruiTitle'>
+                        {title}
+                    </div>
+                    <div className='ruiSearch'>
+                        <SearchIcon className="_rui_Search_icon" />
+                        <input type='text' placeholder='Search' onChange={(e) => setFilter(e.target.value)} />
+                    </div>
+                </div>
+                : null
+        }
+        <div className="_rui_table_container">
+            <div style={{ height: "auto" }}>
+                <table className='_rui_fullWidth'>
+                    <thead>
+                        <tr>
                             {
-                                columns.map(column => <td key={`${row[rowKeyField]}-${column.field}`} width={column.width || 100}>{row[column.field]}</td>)
+                                columns.map(column => <td width={column.width || 100} key={column.field}>{column.label}</td>)
                             }
                         </tr>
-                    )
-                }
-            </tbody>
-        </table>
-        <div className="_rui_footer">
-            <div className='fuiFooterTitle'>
-                Showing 5 of 5 Items
+                    </thead>
+                    <tbody>
+                        {
+                            items.map((row: RowType) =>
+                                <tr key={row[rowKeyField]}>
+                                    {
+                                        columns.map(column => {
+                                            if (column.field)
+                                                return (<td key={`${row[rowKeyField]}-${column.field}`} width={column.width || 100}>
+                                                    {
+                                                        column.render ? column.render(row) : row[column.field]
+                                                    }
+                                                </td>)
+
+                                        })
+                                    }
+                                </tr>
+                            )
+                        }
+                    </tbody>
+                </table>
             </div>
-            <div>
+        </div>
+        {
+            (showFooter === undefined || showFooter === true) ?
+
+                <div className="_rui_footer">
+                    <div className='fuiFooterTitle'>
+                        Showing {items.length} Items
+                    </div>
+                    {/* <div>
                 {
                     pagination ? <Pagination
-                        totalItems={data.length}
+                        totalItems={items.length}
                         currentPage={1}
                         setCurrentPage={() => { }}
                         itemsPerPage={itemsPerPage || 10}
                     /> : null
                 }
-            </div>
-        </div>
-    </div>
+            </div> */}
+                </div>
+                : null
+        }
+    </div >
 };
 
 export default EazyTable;
