@@ -104,6 +104,7 @@ EasyTable is a versatile React library designed to streamline the process of cre
 | showFooter | Boolean |  |
 | height    | String | Set a fixed height for the table |
 | alignText    | String | Set the alignment of text in the table |
+| striped    | String | Enable stripes for rows  |
 
 
 
